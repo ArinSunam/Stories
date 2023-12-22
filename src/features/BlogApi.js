@@ -16,7 +16,8 @@ export const BlogApi = createApi({
     getPostDetail: builder.query({
       query: () => ({
         url: `/api/posts/${id}`
-         console.log(id)
+
+
 
       })
 
