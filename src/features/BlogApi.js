@@ -8,15 +8,21 @@ export const BlogApi = createApi({
   endpoints: (builder) => ({
 
     getPosts: builder.query({
-      query: () => ({
-        url: `/api/posts`
+      query: (query) => ({
+        url: `/api/posts`,
+        params: {
+          query: query
+
+        }
+
       })
     }),
 
     getPostDetail: builder.query({
-      query: () => ({
-        url: `/api/posts/${id}`
+      query: (query) => ({
+        url: `/api/posts/${query}`,
 
+        method: 'GET'
 
 
       })

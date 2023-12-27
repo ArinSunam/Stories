@@ -8,7 +8,7 @@ export const Post = () => {
   const nav = useNavigate();
 
 
-  console.log(data);
+  console.log("data", data);
 
 
 
@@ -28,13 +28,17 @@ export const Post = () => {
 
             <div className='flex flex-col items-center'>
               <div className='text-[11px] text-amber-400 leading-5  cursor-pointer mt-[15px]  ' >
-                {data && detail.categories.map((categories) => (
-                  <span className='mr-[10px]'>{categories.name}</span>
+
+                {/* ERROR */}
+
+                {detail.categories.map(category =>
+
+                (<span className='mr-[10px]'>{category}</span>
                 )
                 )}
 
               </div>
-              <span onClick={(id) => nav(`/posts/${id}`)} className='text-[24px] font-bold mt-[15px] cursor-pointer'>{data && detail.title} </span>
+              <span onClick={() => nav(`/posts/${detail._id}`)} className='text-[24px] font-bold mt-[15px] cursor-pointer'>{data && detail.title} </span>
               <hr />
               <span className='italic text-[13px] text-gray-400 mt-15px'>1 hour ago</span>
 

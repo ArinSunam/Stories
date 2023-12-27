@@ -3,9 +3,9 @@ import React from 'react'
 const Header = () => {
   return (
     <div className='mt-[60px]  '>
-      <div className=' flex flex-col items-center  '>
-        <span className='absolute top-[17%] text-[20px] text-gray-400'>Stories & Meow</span>
-        <span className='absolute top-[17%] text-[100px] text-black'>Blog</span>
+      <div className=' flex flex-col items-center font-Lora '>
+        <span className='absolute top-[17%] text-[20px] text-gray-400 font'>Stories & Meow</span>
+        <span className='absolute top-[17%] text-[100px] text-black '>Blog</span>
 
       </div>
 

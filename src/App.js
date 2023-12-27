@@ -11,21 +11,15 @@ import Login from './pages/Login'
 const App = () => {
   return (
     <>
-
       <Routes>
         <Route path='/' element={<RootLayOut />}>
           <Route index element={<HomePage />} />
-          <Route path='/posts/:id' element={<Single />} />
+          <Route path='/posts/:_id' element={<Single />} />
           <Route path='/write' element={<Write />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/login' element={<Login />} />
         </Route>
       </Routes>
-
-
-
-
-
     </>
   )
 }
