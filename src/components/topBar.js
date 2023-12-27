@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const TopBar = () => {
 
+  const user = false;
 
   return (
     <div className='bg-white w-full h-[50px] sticky top-0 flex z-[999]'>
@@ -36,10 +37,26 @@ const TopBar = () => {
 
 
       <div className='w-2/12  flex items-center justify-center'>
-        <NavLink to='/settings'>
+
+        {user ? (<NavLink to='/settings'>
           <img className='w-[40px] h-[40px] rounded-full object-cover '
             src="https://plus.unsplash.com/premium_photo-1676741354457-5f1739f8837e?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
         </NavLink>
+        ) : (
+          <>
+
+            <ul className='flex justify-center items-center list-none text-lg font-light cursor-pointer
+            mt-2 '>
+              <li className='mr-5 hover:text-blue-400'>
+                <NavLink to='/login'>
+                  LOGIN</NavLink></li>
+              <li className='mr-5 hover:text-orange-400'>
+                <NavLink to='/register'>
+                  REGISTER</NavLink></li>
+            </ul>
+
+          </>
+        )}
 
 
         <i className='fa-solid fa-magnifying-glass

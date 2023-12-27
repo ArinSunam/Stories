@@ -14,5 +14,5 @@ export const store = configureStore({
     BlogApi.middleware,
     CatsApi.middleware,
     authApi.middleware
-  ])
+  ]),
 });

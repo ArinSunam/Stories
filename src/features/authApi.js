@@ -30,4 +30,4 @@ export const authApi = createApi({
   })
 });
 
-export const { useGetPostsQuery, useGetPostDetailQuery } = authApi;
+export const { useRegisterMutation, useLoginMutation } = authApi;
