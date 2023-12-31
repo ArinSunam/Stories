@@ -1,9 +1,14 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, NavLink } from 'react-router-dom'
+import { clearAll } from '../features/userSlice'
+
 
 const TopBar = () => {
 
-  const user = false;
+  const { user } = useSelector((store) => store.userInfo);
+
+  const dispatch = useDispatch();
 
   return (
     <div className='bg-white w-full h-[50px] sticky top-0 flex z-[999]'>
@@ -26,22 +31,34 @@ const TopBar = () => {
 
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/about'>About </NavLink>
-        <NavLink to='/contact'>Contact </NavLink>
-        <NavLink to='/write'>Write </NavLink>
+
+
+        {user ? (
+          <Link onClick={() => dispatch(clearAll())}> Logout</Link>
+        ) : (
+          <NavLink to='/contact'>Contact </NavLink>
+
+        )
+        }
+
+        <NavLink to='/write'>{user && 'Write'} </NavLink>
+
+
+
 
       </nav>
 
-
-
-
-
-
       <div className='w-2/12  flex items-center justify-center'>
 
-        {user ? (<NavLink to='/settings'>
-          <img className='w-[40px] h-[40px] rounded-full object-cover '
-            src="https://plus.unsplash.com/premium_photo-1676741354457-5f1739f8837e?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-        </NavLink>
+        {user ? (
+          <>
+            <NavLink to='/settings'>
+              <img className='w-[40px] h-[40px] rounded-full object-cover '
+                src="https://plus.unsplash.com/premium_photo-1676741354457-5f1739f8837e?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            </NavLink>
+
+          </>
+
         ) : (
           <>
 

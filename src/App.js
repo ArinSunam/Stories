@@ -7,6 +7,7 @@ import Write from './pages/Write'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { ToastContainer } from 'react-toastify'
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/register' element={<Register />} />
         </Route>
       </Routes>
+      <ToastContainer autoClose={1000} />
     </>
   )
 }

@@ -19,7 +19,7 @@ const Register = () => {
 
 
   const registerSchema = Yup.object().shape({
-    fullname: Yup.string().min(5).max(20).required('Required'),
+    username: Yup.string().min(5).max(20).required('Required'),
     email: Yup.string().email('Invalid email').required('Required'),
     password: Yup.string().min(5).max(20).required('Required')
 
@@ -30,7 +30,7 @@ const Register = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullname: '',
+      username: '',
       email: '',
       password: ''
 
@@ -61,12 +61,12 @@ const Register = () => {
         <div className="mb-4 flex flex-col gap-6">
 
           <Input
-            name='fullname'
+            name='username'
             onChange={formik.handleChange}
-            value={formik.values.fullname}
+            value={formik.values.username}
             size="lg" label="UserName" />
 
-          {formik.errors.fullname && formik.touched.fullname && <h1 className='text-pink-700'>{formik.errors.fullname}</h1>}
+          {formik.errors.username && formik.touched.username && <h1 className='text-pink-700'>{formik.errors.username}</h1>}
 
 
           <Input
