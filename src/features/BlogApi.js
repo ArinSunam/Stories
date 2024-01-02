@@ -28,15 +28,32 @@ export const BlogApi = createApi({
       })
     }),
 
+    getPostByCategory: builder.query({
+      query: (category) => ({
+        url: `/api/posts`,
+        params: { cat: category },
+      })
+    }),
+
+
     createPost: builder.mutation({
-      query: ({ title, content }) => ({
+      query: ({ title, desc }) => ({
         url: `/api/posts`,
         method: 'POST',
-        body: { title, content }
+        body: { title, desc, username: "gfdfgbdfg" }
+      })
+    }),
+
+    deletePost: builder.mutation({
+      query: (query) => ({
+        url: `/api/posts/${query}`,
+        method: 'DELETE',
+        body: 'username'
       })
     })
 
   })
 });
 
-export const { useGetPostsQuery, useGetPostDetailQuery, useCreatePostMutation } = BlogApi
+
+export const { useGetPostsQuery, useGetPostDetailQuery, useGetPostByCategoryQuery, useCreatePostMutation } = BlogApi

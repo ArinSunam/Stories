@@ -1,17 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { clearAllData, getUser, setUser } from "./storage";
+import { clearAllData, getPosts, getUser, setPosts, setUser } from "./storage";
 
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: getUser(),
+    post: getPosts()
   },
 
   reducers: {
     setUserToLocal: (state, action) => {
       state.user = action.payload;
       setUser(state.user);
+    },
+
+    setPostToLocal: (state, action) => {
+      state.post = action.payload;
+      setPosts(state.post);
     },
 
     clearAll: (state, action) => {
@@ -21,6 +27,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setUserToLocal, clearAll } = userSlice.actions;
+export const { setUserToLocal, setPostToLocal, clearAll } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,24 +1,34 @@
 import React, { useState } from 'react'
 import { Button } from '@material-tailwind/react'
 import { useCreatePostMutation } from '../features/BlogApi';
+import { useDispatch } from 'react-redux';
+import { setPostToLocal } from '../features/userSlice';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 
 
 const Write = () => {
 
   const [mutate, { isLoading }] = useCreatePostMutation()
-  console.log(mutate)
+  console.log(mutate);
+  const dispatch = useDispatch();
+  const nav = useNavigate();
 
 
   const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+  const [desc, setDesc] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('form submitted')
 
     try {
-      await mutate({ title, content });
+      await mutate({ title, desc }).unwrap();
+      toast.success("Post Successful");
+      nav(-1);
+
+
     } catch (error) {
       console.log('Error posting data', error);
 
@@ -48,8 +58,8 @@ const Write = () => {
           <textarea placeholder='Tell your story'
             type="text" className='text-[20px] 
             p-[20px] h-[100vh] w-[70vw] focus:outline-none'
-            value={content || ''}
-            onChange={(e) => setContent(e.target.value)}></textarea>
+            value={desc || ''}
+            onChange={(e) => setDesc(e.target.value)} />
         </div>
         <Button
           type='submit' color='teal'

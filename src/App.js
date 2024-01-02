@@ -7,8 +7,9 @@ import Write from './pages/Write'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import { ToastContainer } from 'react-toastify'
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (

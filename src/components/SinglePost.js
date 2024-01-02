@@ -1,14 +1,20 @@
 import React from 'react'
 import { useGetPostDetailQuery } from '../features/BlogApi'
 import { useParams } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { clearAll } from '../features/userSlice'
 
 // PURAI ERROR
+
+
+
 
 
 const SinglePost = () => {
 
   const { _id } = useParams();
   const { isLoading, isError, error, data } = useGetPostDetailQuery(_id);
+  const dispatch = useDispatch();
 
 
 
@@ -23,7 +29,7 @@ const SinglePost = () => {
 
           <h1 className='text-center text-[28px]'>{data.title}
             <div className='float-right text-[16px] cursor-pointer'>
-              <i className='fa-regular fa-pen-to-square
+              <i onClick={() => dispatch(clearAll())} className='fa-regular fa-pen-to-square
             text-blue-400'></i>
               <i className='fa-solid fa-trash
             ml-[10px] text-red-600'></i>

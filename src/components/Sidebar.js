@@ -5,6 +5,7 @@ const Sidebar = () => {
 
   const { data, isLoading } = useGetCategoriesQuery();
 
+
   return (
     <div className='w-3/12 m-[20px] pb-[30px] bg-slate-50  rounded-lg flex flex-col items-center'>
       <div className='flex flex-col items-center' >
