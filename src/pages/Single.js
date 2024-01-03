@@ -4,9 +4,9 @@ import SinglePost from '../components/SinglePost'
 
 const Single = () => {
   return (
-    <div className='flex'>
+    <div >
       <SinglePost />
-      <Sidebar />
+
 
     </div>
   )

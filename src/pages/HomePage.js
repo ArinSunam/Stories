@@ -17,6 +17,7 @@ const HomePage = () => {
 
 
       <div className='flex '>
+
         <Post />
 
 

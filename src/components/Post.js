@@ -15,14 +15,14 @@ export const Post = () => {
 
   return (
 
-    <div className='w-9/12 flex flex-wrap m-5'>
+    <div className='w-9/12 '>
 
-      <div className='w-[385px] mt-[10px] mr-[25px] mb-[40px] ml-[25px]'>
+      <div className='grid grid-cols-2 md:grid-cols-1'>
 
 
 
         {data && data.map(detail => (
-          <>
+          <div className='w-[385px] mt-[35px] mr-[25px] mb-[40px] ml-[25px] '>
 
             <img className='w-full h-[280px] object-cover rounded-[7px] ' src="https://images.unsplash.com/photo-1655183806422-e40565e79e5c?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxlY3RyaWMlMjBndWl0YXIlMjBwbGF5ZXJ8ZW58MHx8MHx8fDA%3D" alt="" />
 
@@ -43,12 +43,12 @@ export const Post = () => {
               <span className='italic text-[13px] text-gray-400 mt-15px'>1 hour ago</span>
 
 
-              <p className='text-[14px] text-gray-700 leading-6 mt-[15px] text-ellipsis line-clamp-4  '>
+              <p className='text-[14px] text-gray-700 leading-6 mt-[10px] text-ellipsis line-clamp-4  '>
 
                 {data && detail.desc}
 
               </p></div>
-          </>
+          </div>
         ))}
 
 

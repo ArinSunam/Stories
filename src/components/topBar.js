@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { clearAll } from '../features/userSlice'
+import { toast } from 'react-toastify'
 
 
 const TopBar = () => {
@@ -9,6 +10,15 @@ const TopBar = () => {
   const { user } = useSelector((store) => store.userInfo);
 
   const dispatch = useDispatch();
+  const nav = useNavigate();
+
+  const logoutClick = () => {
+    dispatch(clearAll());
+    toast.success('Logged out!');
+    nav('/login');
+  };
+
+
 
   return (
     <div className='bg-white w-full h-[50px] sticky top-0 flex z-[999]'>
@@ -34,7 +44,7 @@ const TopBar = () => {
 
 
         {user ? (
-          <Link onClick={() => dispatch(clearAll())}> Logout</Link>
+          <Link onClick={logoutClick}> Logout</Link>
         ) : (
           <NavLink to='/contact'>Contact </NavLink>
 
@@ -85,5 +95,6 @@ const TopBar = () => {
     </div>
   )
 }
+
 
 export default TopBar

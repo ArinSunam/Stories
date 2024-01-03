@@ -37,23 +37,30 @@ export const BlogApi = createApi({
 
 
     createPost: builder.mutation({
-      query: ({ title, desc }) => ({
+      query: ({ title, desc, username }) => ({
         url: `/api/posts`,
         method: 'POST',
-        body: { title, desc, username: "gfdfgbdfg" }
+        body: { title, desc, username }
+      })
+    }),
+
+    updatePost: builder.mutation({
+      query: ({ id, updatedPost }) => ({
+        url: `/posts/${id}`,
+        method: 'PUT',
+        body: updatedPost
       })
     }),
 
     deletePost: builder.mutation({
-      query: (query) => ({
-        url: `/api/posts/${query}`,
-        method: 'DELETE',
-        body: 'username'
+      query: ({ username, id }) => ({
+        url: `/posts/${id}`, method: 'DELETE',
+        body: username
       })
-    })
+    }),
 
   })
 });
 
 
-export const { useGetPostsQuery, useGetPostDetailQuery, useGetPostByCategoryQuery, useCreatePostMutation } = BlogApi
+export const { useGetPostsQuery, useGetPostDetailQuery, useGetPostByCategoryQuery, useCreatePostMutation, useUpdatePostMutation, useDeletePostMutation } = BlogApi

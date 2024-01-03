@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Button } from '@material-tailwind/react'
 import { useCreatePostMutation } from '../features/BlogApi';
-import { useDispatch } from 'react-redux';
-import { setPostToLocal } from '../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+
 
 
 
@@ -18,13 +18,14 @@ const Write = () => {
 
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
+  const { user } = useSelector((store) => store.userInfo);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('form submitted')
 
     try {
-      await mutate({ title, desc }).unwrap();
+      await mutate({ title, desc, username: user.username }).unwrap();
       toast.success("Post Successful");
       nav(-1);
 
