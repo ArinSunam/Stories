@@ -1,6 +1,7 @@
 import React from 'react'
 import { useGetPostsQuery } from '../features/BlogApi';
 import { useNavigate } from 'react-router';
+import { baseUrl } from '../features/constant';
 
 
 export const Post = () => {
@@ -24,7 +25,7 @@ export const Post = () => {
         {data && data.map(detail => (
           <div className='w-[385px] mt-[35px] mr-[25px] mb-[40px] ml-[25px] '>
 
-            <img className='w-full h-[280px] object-cover rounded-[7px] ' src="https://images.unsplash.com/photo-1655183806422-e40565e79e5c?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxlY3RyaWMlMjBndWl0YXIlMjBwbGF5ZXJ8ZW58MHx8MHx8fDA%3D" alt="" />
+            <img className='w-full h-[280px] object-cover rounded-[7px] ' src={`${baseUrl}${data && detail.photo}`} alt="" />
 
             <div className='flex flex-col items-center'>
               <div className='text-[11px] text-amber-400 leading-5  cursor-pointer mt-[15px]  ' >

@@ -4,7 +4,8 @@ import { useCreatePostMutation } from '../features/BlogApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-
+import * as Yup from "yup";
+import { useFormik } from 'formik';
 
 
 
@@ -16,51 +17,99 @@ const Write = () => {
   const nav = useNavigate();
 
 
-  const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
+
   const { user } = useSelector((store) => store.userInfo);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log('form submitted')
+  const valSchema = Yup.object().shape({
+    title: Yup.string().min(3, 'too short').max(30, 'max character').required(),
+    desc: Yup.string().min(30, 'too short').max(1500, 'max character').required(),
+    photo: Yup.mixed().test('fileType', 'Invalid file type', (value) => value && ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)).test('fileSize', 'File too large', (value) =>
+      (value && value.size <= 10 * 1024 * 1024)
+    )
+  });
 
-    try {
-      await mutate({ title, desc, username: user.username }).unwrap();
-      toast.success("Post Successful");
-      nav(-1);
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      desc: '',
+      photo: null,
+      preview: '',
+    },
+
+    onSubmit: async (val) => {
+      let formData = new FormData();
+      formData.append('title', val.title);
+      formData.append('desc', val.desc);
+      formData.append('photo', val.photo);
+      formData.append('username', user.username);
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
+
+      try {
+        await mutate(formData).unwrap();
+        toast.success("Post Successful");
+        nav(-1);
 
 
-    } catch (error) {
-      console.log('Error posting data', error);
+      } catch (error) {
+        console.log('Error posting data', error);
 
-    }
+      }
 
-  };
+    },
+    validationSchema: valSchema
+
+  })
+
+
   return (
     <div className='pt-[50px] '>
       <img className='ml-[150px] w-[70vw] h-[250px] object-cover rounded-md' src="https://images.unsplash.com/photo-1494256997604-768d1f608cac?q=80&w=1529&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={formik.handleSubmit} >
         <div className='ml-[150px] flex items-center'>
           <label htmlFor="fileInput">
             <i className='fa-solid fa-plus first-letter:w-[25px]h-[25px] rounded-[50%] border-[1px] border-solid flex items-center justify-center text-[20px] text-gray-600
+            cursor-pointer
             
             '></i>
           </label>
-          <input className='hidden' type="file" id="fileInput"
+          <input
+            id='fileInput'
+            className='hidden'
+            type="file"
+            name='photo'
+            onChange={(e) => {
+              const file = e.currentTarget.files[0];
+              formik.setFieldValue('photo', file);
+              formik.setFieldValue('preview', URL.createObjectURL(file));
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.addEventListener('load', () => {
+                formik.setFieldValue('preview', reader.result);
+              })
+            }}
           />
+          {formik.errors.photo && formik.touched.photo ? <h1 className='mt-2 text-red-600'>{formik.errors.photo}</h1> : null}
+          {formik.values.preview && <img src={formik.values.preview} alt='Preview' className='w-20 h-20 ml-2' />}
+
 
           <input className=
             ' border-none text-[30px] p-[20px] w-[70vw] focus:outline-none' type="text" placeholder='Title' autoFocus={true}
-            value={title || ''} //ensuring that value is undefined
-            onChange={(e) => setTitle(e.target.value)} />
+            id='title'
+            value={formik.values.title}
+            onChange={formik.handleChange} />
+          {formik.errors.title && formik.touched.title ? <h1 className='mt-2 text-red-600'>{formik.errors.title}</h1> : null}
 
         </div>
         <div className='ml-[150px] border-none'>
           <textarea placeholder='Tell your story'
             type="text" className='text-[20px] 
             p-[20px] h-[100vh] w-[70vw] focus:outline-none'
-            value={desc || ''}
-            onChange={(e) => setDesc(e.target.value)} />
+            id='desc'
+            value={formik.values.desc}
+            onChange={formik.handleChange} />
         </div>
         <Button
           type='submit' color='teal'

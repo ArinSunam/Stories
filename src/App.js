@@ -10,6 +10,7 @@ import Register from './pages/Register'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EditPost from './pages/UpdatePost/EditPost'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/' element={<RootLayOut />}>
           <Route index element={<HomePage />} />
           <Route path='/posts/:_id' element={<Single />} />
+          <Route path='/posts/update/:id' element={<EditPost />} />
           <Route path='/write' element={<Write />} />
           <Route path='/settings' element={<Settings />} />
           <Route path='/login' element={<Login />} />

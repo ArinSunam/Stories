@@ -5,17 +5,14 @@ import { baseUrl } from "./constant"
 export const BlogApi = createApi({
   reducerPath: 'BlogApi',
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
+  tagTypes: ['post'],
   endpoints: (builder) => ({
 
     getPosts: builder.query({
       query: (query) => ({
         url: `/api/posts`,
-        params: {
-          query: query
-
-        }
-
-      })
+      }),
+      providesTags: ['post']
     }),
 
     getPostDetail: builder.query({
@@ -25,38 +22,41 @@ export const BlogApi = createApi({
         method: 'GET'
 
 
-      })
+      }),
+      providesTags: ['post']
     }),
 
-    getPostByCategory: builder.query({
-      query: (category) => ({
-        url: `/api/posts`,
-        params: { cat: category },
-      })
-    }),
+
 
 
     createPost: builder.mutation({
-      query: ({ title, desc, username }) => ({
+      query: (query) => ({
         url: `/api/posts`,
         method: 'POST',
-        body: { title, desc, username }
-      })
+        body: query
+      }),
+      invalidatesTags: ['post']
     }),
 
     updatePost: builder.mutation({
-      query: ({ id, updatedPost }) => ({
-        url: `/posts/${id}`,
-        method: 'PUT',
-        body: updatedPost
-      })
+      query: ({ id, body }) => {
+
+        return {
+          url: `api/posts/${id}`,
+          method: 'PATCH',
+          body: body,
+        }
+      },
+      invalidatesTags: ['post']
     }),
 
     deletePost: builder.mutation({
       query: ({ username, id }) => ({
-        url: `/posts/${id}`, method: 'DELETE',
-        body: username
-      })
+        url: `/api/posts/${id}`,
+        method: 'DELETE',
+        body: { username }
+      }),
+      invalidatesTags: ['post']
     }),
 
   })
