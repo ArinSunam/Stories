@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import { Button } from '@material-tailwind/react'
-import { useCreatePostMutation } from '../features/BlogApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
+import { useUpdatePostMutation } from '../../features/BlogApi';
+import { baseUrl } from '../../features/constant';
 
 
 
-const Write = () => {
+const EditForm = ({ post }) => {
 
-  const [mutate, { isLoading }] = useCreatePostMutation()
-  console.log(mutate);
-  const dispatch = useDispatch();
+  const [updatePost, { isLoading }] = useUpdatePostMutation();
+
+
+  console.log('update', updatePost);
+
   const nav = useNavigate();
 
 
@@ -23,45 +26,69 @@ const Write = () => {
   const valSchema = Yup.object().shape({
     title: Yup.string().min(3, 'too short').max(30, 'max character').required(),
     desc: Yup.string().min(30, 'too short').max(3500, 'max character').required(),
-    photo: Yup.mixed().test('fileType', 'Invalid file type', (value) => value && ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)).test('fileSize', 'File too large', (value) =>
-      (value && value.size <= 10 * 1024 * 1024)
-    )
+    // photo: Yup.mixed().test('fileType', 'Invalid file type', (value) => value && ['image/jpeg', 'image/jpg', 'image/png'].includes(value.type)).test('fileSize', 'File too large', (value) =>
+    //   (value && value.size <= 10 * 1024 * 1024)
+    // )
   });
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      desc: '',
+      title: post.title,
+      desc: post.desc,
       photo: null,
-      preview: '',
+      preview: `${baseUrl}${post.photo}`,
     },
 
     onSubmit: async (val) => {
+      console.log('onsubmit')
       let formData = new FormData();
       formData.append('title', val.title);
       formData.append('desc', val.desc);
-      formData.append('photo', val.photo);
       formData.append('username', user.username);
+      console.log('body.user', user.username)
 
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-      }
+
+      console.log('form data', formData)
 
       try {
-        await mutate(formData).unwrap();
-        toast.success("Post Successful");
-        nav(-1);
+
+        const postId = String(post._id);
+
+        if (formik.values.photo === null) {
+          const response = await updatePost({
+            body: formData,
+            id: postId
+          }).unwrap();
+          console.log('response', response);
+          toast.success("Update Successful");
+          nav(-1);
+        } else {
+          formData.append('photo', val.photo);
+          formData.append('prevImage', post.photo);
+
+          const response = await updatePost({
+            body: formData,
+            id: postId
+          }).unwrap();
+          console.log('response', response);
+          toast.success("Update Successful");
+          nav(-1);
+        }
+
 
 
       } catch (error) {
-        console.log('Error posting data', error);
+        console.log('Error updating data', error);
 
       }
 
     },
     validationSchema: valSchema
 
+
+
   })
+
 
 
   return (
@@ -112,7 +139,7 @@ const Write = () => {
             onChange={formik.handleChange} />
         </div>
         <Button
-          type='submit' color='teal'
+          type='Submit' color='teal'
           className='absolute bottom-[215px]
           right-[50px]'> Publish </Button>
 
@@ -122,4 +149,4 @@ const Write = () => {
   )
 }
 
-export default Write
+export default EditForm

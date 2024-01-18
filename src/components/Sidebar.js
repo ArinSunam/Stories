@@ -10,7 +10,7 @@ const Sidebar = () => {
 
 
   return (
-    <div className='w-3/12 m-[20px] pb-[30px] bg-slate-50  rounded-lg flex flex-col items-center overflow-y-scroll h-[900px] sticky top-[55px] '>
+    <div className='w-3/12 m-[20px] pb-[30px] bg-slate-50  rounded-lg flex flex-col items-center  h-[900px] sticky top-[55px]  '>
       <div className='flex flex-col items-center' >
         <span className=' m-[10px] p-[5px] w-[80%] border-y-2 border-solid border-slate-150 
         font-semibold col text-[12px] text-center
