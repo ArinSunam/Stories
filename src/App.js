@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditPost from './pages/UpdatePost/EditPost'
+import UserRoute from './components/UserRoute'
 
 const App = () => {
   return (
@@ -22,8 +23,12 @@ const App = () => {
           <Route path='/posts/update/:id' element={<EditPost />} />
           <Route path='/write' element={<Write />} />
           <Route path='/settings' element={<Settings />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+
+          <Route element={<UserRoute />} >
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Route>
+
         </Route>
       </Routes>
       <ToastContainer autoClose={1000} />
