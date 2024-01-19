@@ -31,7 +31,7 @@ export const BlogApi = createApi({
 
     createPost: builder.mutation({
       query: (query) => ({
-        url: `/api/posts`,
+        url: `/api/add-posts`,
         method: 'POST',
         body: query
       }),
