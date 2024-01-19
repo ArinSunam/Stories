@@ -25,7 +25,7 @@ export const Post = () => {
         {data && data.map(detail => (
           <div className='w-[385px] mt-[35px] mr-[25px] mb-[40px] ml-[25px] '>
 
-            <img className='w-full h-[280px] object-cover rounded-[7px] ' src={`${baseUrl}${data && detail.photo}`} alt="" />
+            <img className='w-full h-[280px] object-cover rounded-[7px] ' src={`${baseUrl}${detail.photo}`} alt="" />
 
             <div className='flex flex-col items-center'>
               <div className='text-[11px] text-amber-400 leading-5  cursor-pointer mt-[15px]  ' >

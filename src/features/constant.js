@@ -1,3 +1,3 @@
 
 
-export const baseUrl = 'https://stories-rxs6.onrender.com/';
+export const baseUrl = 'https://stories-rxs6.onrender.com';
