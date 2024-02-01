@@ -36,17 +36,17 @@ const TopBar = () => {
       </div>
 
 
-      <nav className='w-8/12 flex justify-center     items-center list-none  text-lg text-gray-400 
+      <nav className='w-8/12 ml-[70px] flex justify-center     items-center gap-10 md:gap-3 list-none  text-lg text-gray-400 
         space-x-5 mt-2.5 font-light cursor-pointer'>
 
         <NavLink to='/'>Home</NavLink>
-        <NavLink to='/about'>About </NavLink>
+        <NavLink to='/'>About </NavLink>
 
 
         {user ? (
           <Link onClick={logoutClick}> Logout</Link>
         ) : (
-          <NavLink to='/contact'>Contact </NavLink>
+          <NavLink to='/'>Contact </NavLink>
 
         )
         }
@@ -62,7 +62,7 @@ const TopBar = () => {
 
         {user ? (
           <>
-            <NavLink to='/settings'>
+            <NavLink to='/'>
               <img className='w-[40px] h-[40px] rounded-full object-cover '
                 src="https://plus.unsplash.com/premium_photo-1676741354457-5f1739f8837e?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
             </NavLink>
@@ -72,7 +72,7 @@ const TopBar = () => {
         ) : (
           <>
 
-            <ul className='flex justify-center items-center list-none text-lg font-light cursor-pointer
+            <ul className='flex  md:flex md:flex-col  md:space-y-1 md:mt-12 justify-center items-center list-none text-lg font-light cursor-pointer
             mt-2 '>
               <li className='mr-5 hover:text-blue-400'>
                 <NavLink to='/login'>
@@ -86,9 +86,6 @@ const TopBar = () => {
         )}
 
 
-        <i className='fa-solid fa-magnifying-glass
-        
-        text-lg text-gray-500 cursor-pointer ml-4'></i>
 
       </div>
 
